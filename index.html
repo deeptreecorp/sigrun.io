@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sigrun — Policy Execution for High-Stakes Operations</title>
+  <meta name="description" content="Safely execute AI-initiated actions with deterministic approvals, audit trails, and recovery. Policy execution for high-stakes operations.">
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #121826;
+      --muted: #5a6475;
+      --accent: #2f80ff;
+      --accent-dark: #1f5fc0;
+      --border: #e6eaf2;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1320;
+        --card: #171c2c;
+        --text: #eef3ff;
+        --muted: #afbbd6;
+        --accent: #6ea6ff;
+        --accent-dark: #8db8ff;
+        --border: #2a334a;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      width: min(980px, 92vw);
+      margin: 0 auto;
+      padding: 3.5rem 0 4rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.6vw, 3.3rem);
+      line-height: 1.08;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subhead {
+      margin: 0;
+      font-size: clamp(1.03rem, 2.1vw, 1.2rem);
+      color: var(--muted);
+      max-width: 860px;
+    }
+
+    .cta {
+      margin-top: 1.8rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.68rem 1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: inherit;
+      font-family: inherit;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--card);
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn.primary:hover { background: var(--accent-dark); }
+
+    .section {
+      margin-top: 2.8rem;
+      padding: 1.15rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+    }
+
+    h2 {
+      margin: 0 0 0.55rem;
+      font-size: 1.12rem;
+    }
+
+    ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+    }
+
+    .step {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem;
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+      font-size: 0.95rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem;
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .kicker {
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin: 0 0 0.35rem;
+    }
+
+    .muted { color: var(--muted); }
+
+    .problem-copy {
+      font-size: clamp(1.22rem, 2.9vw, 1.7rem);
+      line-height: 1.3;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0.35rem 0;
+      max-width: 900px;
+    }
+
+    .problem-copy-sub {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      line-height: 1.45;
+      color: var(--muted);
+      margin: 1rem 0 0;
+      max-width: 860px;
+    }
+
+    .problem-accent {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .steps-list {
+      margin: 0.8rem 0 0;
+      padding-left: 1.4rem;
+      color: var(--muted);
+    }
+
+    .steps-list li {
+      padding: 0.25rem 0;
+    }
+
+    footer {
+      margin-top: 2.8rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    a { color: var(--accent); }
+
+    #dot-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-dttL_Dre9m-KFNp03ycUX.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
+</head>
+<body>
+  <canvas id="dot-grid"></canvas>
+  <main class="wrap">
+    <span class="eyebrow">Sigrun</span>
+    <h1>Every AI decision. Governed, approved, auditable.</h1>
+    <p class="subhead">A runtime for enforcing approval chains, audit trails, and policy controls on every AI action.</p>
+
+    <div class="cta">
+      <button class="btn primary" data-tally-open="1ArJMb" data-tally-layout="modal" data-tally-width="700" data-tally-auto-close="3000">Request Early Access</button>
+      <a class="btn" href="mailto:team@sigrun.io?subject=Sigrun%20Example%20Workflow">See Example Workflow</a>
+    </div>
+    <p class="muted" style="margin-top:0.5rem;">In early access with ops and compliance teams.</p>
+    <script async src="https://tally.so/widgets/embed.js"></script>
+
+    <div style="margin-top: 2rem;">
+      <p class="problem-copy">AI agents are making decisions that affect your <span class="problem-accent">customers</span>, your <span class="problem-accent">revenue</span>, and your <span class="problem-accent">compliance posture</span>.</p>
+      <p class="problem-copy-sub">Most teams have <span class="problem-accent">no way to enforce</span> who approves what, under which policy, or what happens when something goes wrong.</p>
+    </div>
+
+    <!-- Example workflow -->
+    <section class="section">
+      <h2>AI-Proposed Refund Under Policy Control</h2>
+      <ol class="steps-list">
+        <li>AI proposes a refund of $6,200.</li>
+        <li><strong style="color: var(--text)">Policy v3.2 high-stakes rule:</strong> refunds above $5,000 require staged approval (manager &rarr; VP) within 48 hours.</li>
+        <li>Manager reviews first; if approved, VP is notified next.</li>
+        <li>Refund is issued only after required stage approvals are complete.</li>
+        <li>All inputs, decisions, approvers, and policy version are logged and replayable.</li>
+      </ol>
+      <details class="muted" style="margin-top:0.75rem;">
+        <summary><strong style="color: var(--text)">Edge-case handling</strong></summary>
+        <div style="margin-top:0.5rem;">
+          <p class="muted" style="margin:0.25rem 0;">If manager approval times out, the request escalates automatically to VP.</p>
+          <p class="muted" style="margin:0.25rem 0;">If VP approval times out, the refund is rejected and finance/risk is notified.</p>
+        </div>
+      </details>
+    </section>
+
+    <!-- Proof pillars -->
+    <section style="margin-top: 2.8rem;">
+      <div class="grid-3">
+        <div class="card">
+          <strong>Prevent costly wrong decisions</strong>
+          <span class="muted">Enforce policy gates before high-stakes AI actions can execute.</span>
+        </div>
+        <div class="card">
+          <strong>Stop approval and ownership gaps</strong>
+          <span class="muted">Route decisions through staged approvals with automatic timeout escalation.</span>
+        </div>
+        <div class="card">
+          <strong>Stay audit-ready under pressure</strong>
+          <span class="muted">Capture a replayable record of inputs, approvals, actions, and policy version.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="text-align:center;">
+      <p class="muted">Built by repeat founders who've operated AI in legal, support, and public safety — where governance isn't optional.</p>
+      <div class="cta" style="justify-content:center; margin-top:1rem;">
+        <button class="btn primary" data-tally-open="1ArJMb" data-tally-layout="modal" data-tally-width="700" data-tally-auto-close="3000">Request Early Access</button>
+      </div>
+    </section>
+
+
+  </main>
+  <script>
+    (function() {
+      var canvas = document.getElementById('dot-grid');
+      var ctx = canvas.getContext('2d');
+      var dpr = window.devicePixelRatio || 1;
+      var spacing = 32;
+      var radius = 2;
+      var parallax = 0.3;
+      var mouseX = 0, mouseY = 0;
+      var targetX = 0, targetY = 0;
+
+      function getDotColor() {
+        var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        return isDark ? 'rgba(175, 187, 214, 0.3)' : 'rgba(90, 100, 117, 0.25)';
+      }
+
+      function resize() {
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function draw() {
+        targetX += (mouseX - targetX) * 0.08;
+        targetY += (mouseY - targetY) * 0.08;
+        var offsetX = targetX * parallax;
+        var offsetY = targetY * parallax;
+
+        ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
+        ctx.fillStyle = getDotColor();
+
+        var startX = (offsetX % spacing) - spacing;
+        var startY = (offsetY % spacing) - spacing;
+        var w = canvas.width / dpr + spacing;
+        var h = canvas.height / dpr + spacing;
+
+        for (var x = startX; x < w; x += spacing) {
+          for (var y = startY; y < h; y += spacing) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', resize);
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX - window.innerWidth / 2;
+        mouseY = e.clientY - window.innerHeight / 2;
+      });
+
+      resize();
+      draw();
+    })();
+  </script>
+</body>
+</html>
