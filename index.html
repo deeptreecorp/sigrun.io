@@ -197,6 +197,35 @@
       padding: 0.25rem 0;
     }
 
+    .example-tabs {
+      display: inline-flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .example-tab {
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--card) 90%, transparent);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .example-tab.active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .example-panel[hidden] {
+      display: none;
+    }
+
     footer {
       margin-top: 2.8rem;
       color: var(--muted);
@@ -241,24 +270,50 @@
       <p class="problem-copy-sub">It runs domain-specific verification checks, scores confidence, and automatically escalates uncertain or failing cases to human review — with a full replayable audit trail.</p>
     </div>
 
-    <!-- Example workflow -->
-    <section class="section">
-      <h2>AI-Generated Medical Summary (with verification controls)</h2>
-      <ol class="steps-list">
-        <li>AI drafts a patient summary from transcript and chart notes.</li>
-        <li>Before release, Sigrun checks that it matches source records, includes required sections, and doesn’t miss key safety or medication risks.</li>
-        <li>It also flags claims that are not supported by the chart.</li>
-        <li>A second pass scores confidence.</li>
-        <li>High confidence can proceed; low confidence is routed to human review.</li>
-      </ol>
-      <details class="muted" style="margin-top:0.75rem;">
-        <summary><strong style="color: var(--text)">Edge-case handling</strong></summary>
-        <div style="margin-top:0.5rem;">
-          <p class="muted" style="margin:0.25rem 0;">If review times out, escalation routes to on-call clinical ops.</p>
-          <p class="muted" style="margin:0.25rem 0;">If a critical safety check fails, release is blocked and incident review is triggered.</p>
-        </div>
-      </details>
-      <p class="muted" style="margin-top:0.75rem;">All inputs, checks, reviewer decisions, and policy version are logged and replayable.</p>
+    <!-- Example workflows -->
+    <section class="section" id="examples">
+      <h2>Example workflows</h2>
+      <div class="example-tabs" role="tablist" aria-label="Industry examples">
+        <button class="example-tab active" role="tab" aria-selected="true" aria-controls="example-healthcare" id="tab-healthcare" data-example-target="example-healthcare">Healthcare</button>
+        <button class="example-tab" role="tab" aria-selected="false" aria-controls="example-public-safety" id="tab-public-safety" data-example-target="example-public-safety">Public Safety (911)</button>
+      </div>
+
+      <div class="example-panel" id="example-healthcare" role="tabpanel" aria-labelledby="tab-healthcare">
+        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">AI-Generated Medical Summary (with verification controls)</h3>
+        <ol class="steps-list">
+          <li>AI drafts a patient summary from transcript and chart notes.</li>
+          <li>Before release, Sigrun checks that it matches source records, includes required sections, and doesn’t miss key safety or medication risks.</li>
+          <li>It also flags claims that are not supported by the chart.</li>
+          <li>A second pass scores confidence.</li>
+          <li>High confidence can proceed; low confidence is routed to human review.</li>
+        </ol>
+        <details class="muted" style="margin-top:0.75rem;">
+          <summary><strong style="color: var(--text)">Edge-case handling</strong></summary>
+          <div style="margin-top:0.5rem;">
+            <p class="muted" style="margin:0.25rem 0;">If review times out, escalation routes to on-call clinical ops.</p>
+            <p class="muted" style="margin:0.25rem 0;">If a critical safety check fails, release is blocked and incident review is triggered.</p>
+          </div>
+        </details>
+        <p class="muted" style="margin-top:0.75rem;">All inputs, checks, reviewer decisions, and policy version are logged and replayable.</p>
+      </div>
+
+      <div class="example-panel" id="example-public-safety" role="tabpanel" aria-labelledby="tab-public-safety" hidden>
+        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">911 Voice Agent (with live conversation safeguards)</h3>
+        <ol class="steps-list">
+          <li>During the call, Sigrun tracks the active incident and blocks unsafe topic jumps before key intake steps are complete.</li>
+          <li>It enforces required call-flow checks, like collecting caller identity for crime reports before moving forward.</li>
+          <li>Before hang-up, it verifies completion criteria and whether a promised transfer to a human actually happened.</li>
+          <li>If a rule is missed or confidence drops, the call is escalated to a human dispatcher.</li>
+        </ol>
+        <details class="muted" style="margin-top:0.75rem;">
+          <summary><strong style="color: var(--text)">Failure prevention</strong></summary>
+          <div style="margin-top:0.5rem;">
+            <p class="muted" style="margin:0.25rem 0;">Prevents ending calls before required steps are complete.</p>
+            <p class="muted" style="margin:0.25rem 0;">Blocks hang-up if transfer language is used but no transfer is confirmed.</p>
+          </div>
+        </details>
+        <p class="muted" style="margin-top:0.75rem;">Every turn, check result, escalation, and policy version is logged and replayable.</p>
+      </div>
     </section>
 
     <!-- Proof pillars -->
@@ -342,6 +397,29 @@
 
       resize();
       draw();
+    })();
+
+    (function() {
+      var tabs = document.querySelectorAll('.example-tab');
+      var panels = document.querySelectorAll('.example-panel');
+
+      function showPanel(panelId) {
+        panels.forEach(function(panel) {
+          panel.hidden = panel.id !== panelId;
+        });
+
+        tabs.forEach(function(tab) {
+          var isActive = tab.getAttribute('data-example-target') === panelId;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', String(isActive));
+        });
+      }
+
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          showPanel(tab.getAttribute('data-example-target'));
+        });
+      });
     })();
   </script>
 </body>
