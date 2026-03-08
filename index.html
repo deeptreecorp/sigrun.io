@@ -279,24 +279,23 @@
       </div>
 
       <div class="example-panel" id="example-healthcare" role="tabpanel" aria-labelledby="tab-healthcare">
-        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">AI-Generated Medical Summary (with verification controls)</h3>
+        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Healthcare: Medication risk missed in draft summary</h3>
+        <p class="muted" style="margin:0.35rem 0 0.2rem;">A patient summary omits a medication interaction. Without Sigrun, it ships. With Sigrun:</p>
         <ol class="steps-list">
-          <li>AI drafts a patient summary from transcript and chart notes.</li>
-          <li>Before release, Sigrun checks that it matches source records, includes required sections, and doesn’t miss key safety or medication risks.</li>
-          <li>It also flags claims that are not supported by the chart.</li>
-          <li>A second pass scores confidence.</li>
-          <li>High confidence can proceed; low confidence is routed to human review.</li>
+          <li>Sigrun checks the draft against transcript + chart notes for missing safety and medication risks, required structure, and unsupported claims.</li>
+          <li>It runs a second verifier pass and assigns confidence to the result.</li>
+          <li>If confidence is low or a critical check fails, release is blocked and routed to human review.</li>
         </ol>
         <p class="muted" style="margin-top:0.75rem;">All inputs, checks, reviewer decisions, and policy version are logged and replayable.</p>
       </div>
 
       <div class="example-panel" id="example-public-safety" role="tabpanel" aria-labelledby="tab-public-safety" hidden>
-        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">911 Voice Agent (with live conversation safeguards)</h3>
+        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Public Safety: 911 call closed before intake is complete</h3>
+        <p class="muted" style="margin:0.35rem 0 0.2rem;">A caller reports a crime, but key intake is skipped and the call ends early. Without Sigrun, that failure can pass unnoticed. With Sigrun:</p>
         <ol class="steps-list">
-          <li>During the call, Sigrun tracks the active incident and blocks unsafe topic jumps before key intake steps are complete.</li>
-          <li>It enforces required call-flow checks, like collecting caller identity for crime reports before moving forward.</li>
-          <li>Before hang-up, it verifies completion criteria and whether a promised transfer to a human actually happened.</li>
-          <li>If a rule is missed or confidence drops, the call is escalated to a human dispatcher.</li>
+          <li>Sigrun enforces required call-flow steps before topic shifts, transfer, or hang-up are allowed.</li>
+          <li>It verifies that key fields (like caller identity for reportable incidents) are captured and that promised transfer actions actually happen.</li>
+          <li>If a rule is missed or confidence drops, it blocks closure and escalates to a human dispatcher.</li>
         </ol>
         <p class="muted" style="margin-top:0.75rem;">Every turn, check result, escalation, and policy version is logged and replayable.</p>
       </div>
