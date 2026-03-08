@@ -287,13 +287,6 @@
           <li>A second pass scores confidence.</li>
           <li>High confidence can proceed; low confidence is routed to human review.</li>
         </ol>
-        <details class="muted" style="margin-top:0.75rem;">
-          <summary><strong style="color: var(--text)">Edge-case handling</strong></summary>
-          <div style="margin-top:0.5rem;">
-            <p class="muted" style="margin:0.25rem 0;">If review times out, escalation routes to on-call clinical ops.</p>
-            <p class="muted" style="margin:0.25rem 0;">If a critical safety check fails, release is blocked and incident review is triggered.</p>
-          </div>
-        </details>
         <p class="muted" style="margin-top:0.75rem;">All inputs, checks, reviewer decisions, and policy version are logged and replayable.</p>
       </div>
 
@@ -305,13 +298,6 @@
           <li>Before hang-up, it verifies completion criteria and whether a promised transfer to a human actually happened.</li>
           <li>If a rule is missed or confidence drops, the call is escalated to a human dispatcher.</li>
         </ol>
-        <details class="muted" style="margin-top:0.75rem;">
-          <summary><strong style="color: var(--text)">Failure prevention</strong></summary>
-          <div style="margin-top:0.5rem;">
-            <p class="muted" style="margin:0.25rem 0;">Prevents ending calls before required steps are complete.</p>
-            <p class="muted" style="margin:0.25rem 0;">Blocks hang-up if transfer language is used but no transfer is confirmed.</p>
-          </div>
-        </details>
         <p class="muted" style="margin-top:0.75rem;">Every turn, check result, escalation, and policy version is logged and replayable.</p>
       </div>
     </section>
