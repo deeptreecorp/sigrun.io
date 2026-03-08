@@ -274,27 +274,27 @@
     <section class="section" id="examples">
       <h2>Example workflows</h2>
       <div class="example-tabs" role="tablist" aria-label="Industry examples">
-        <button class="example-tab active" role="tab" aria-selected="true" aria-controls="example-healthcare" id="tab-healthcare" data-example-target="example-healthcare">Healthcare</button>
-        <button class="example-tab" role="tab" aria-selected="false" aria-controls="example-public-safety" id="tab-public-safety" data-example-target="example-public-safety">Public Safety (911)</button>
+        <button class="example-tab active" role="tab" aria-selected="true" aria-controls="example-public-safety" id="tab-public-safety" data-example-target="example-public-safety">Public Safety (911)</button>
+        <button class="example-tab" role="tab" aria-selected="false" aria-controls="example-healthcare" id="tab-healthcare" data-example-target="example-healthcare">Healthcare</button>
       </div>
 
-      <div class="example-panel" id="example-healthcare" role="tabpanel" aria-labelledby="tab-healthcare">
-        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Medication risk missed in a draft summary</h3>
-        <p class="muted" style="margin:0.35rem 0 0.2rem;">A patient summary omits a medication interaction. Without Sigrun, it ships. With Sigrun:</p>
-        <ol class="steps-list">
-          <li>Sigrun checks the draft against source records for missing safety risks, required structure, and unsupported claims.</li>
-          <li>It runs a second verifier pass and assigns confidence to the result.</li>
-          <li>If confidence is low or a critical check fails, release is blocked and routed to human review — with every input, check, and decision logged and replayable.</li>
-        </ol>
-      </div>
-
-      <div class="example-panel" id="example-public-safety" role="tabpanel" aria-labelledby="tab-public-safety" hidden>
+      <div class="example-panel" id="example-public-safety" role="tabpanel" aria-labelledby="tab-public-safety">
         <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">911 call closed before intake is complete</h3>
         <p class="muted" style="margin:0.35rem 0 0.2rem;">A caller reports a crime, but key intake is skipped and the call ends early. Without Sigrun, that failure can pass unnoticed. With Sigrun:</p>
         <ol class="steps-list">
           <li>Sigrun enforces required call-flow steps before topic shifts, transfer, or hang-up are allowed.</li>
           <li>It verifies that key fields (like caller identity for reportable incidents) are captured and that promised transfer actions actually happen.</li>
           <li>If a rule is missed or confidence drops, it blocks closure and escalates to a human dispatcher — with every turn, check result, and decision logged and replayable.</li>
+        </ol>
+      </div>
+
+      <div class="example-panel" id="example-healthcare" role="tabpanel" aria-labelledby="tab-healthcare" hidden>
+        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Medication risk missed in a draft summary</h3>
+        <p class="muted" style="margin:0.35rem 0 0.2rem;">A patient summary omits a medication interaction. Without Sigrun, it ships. With Sigrun:</p>
+        <ol class="steps-list">
+          <li>Sigrun checks the draft against source records for missing safety risks, required structure, and unsupported claims.</li>
+          <li>It runs a second verifier pass and assigns confidence to the result.</li>
+          <li>If confidence is low or a critical check fails, release is blocked and routed to human review — with every input, check, and decision logged and replayable.</li>
         </ol>
       </div>
     </section>
