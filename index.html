@@ -279,25 +279,23 @@
       </div>
 
       <div class="example-panel" id="example-healthcare" role="tabpanel" aria-labelledby="tab-healthcare">
-        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Healthcare: Medication risk missed in draft summary</h3>
+        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Medication risk missed in a draft summary</h3>
         <p class="muted" style="margin:0.35rem 0 0.2rem;">A patient summary omits a medication interaction. Without Sigrun, it ships. With Sigrun:</p>
         <ol class="steps-list">
-          <li>Sigrun checks the draft against transcript + chart notes for missing safety and medication risks, required structure, and unsupported claims.</li>
+          <li>Sigrun checks the draft against source records for missing safety risks, required structure, and unsupported claims.</li>
           <li>It runs a second verifier pass and assigns confidence to the result.</li>
-          <li>If confidence is low or a critical check fails, release is blocked and routed to human review.</li>
+          <li>If confidence is low or a critical check fails, release is blocked and routed to human review — with every input, check, and decision logged and replayable.</li>
         </ol>
-        <p class="muted" style="margin-top:0.75rem;">All inputs, checks, reviewer decisions, and policy version are logged and replayable.</p>
       </div>
 
       <div class="example-panel" id="example-public-safety" role="tabpanel" aria-labelledby="tab-public-safety" hidden>
-        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Public Safety: 911 call closed before intake is complete</h3>
+        <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">911 call closed before intake is complete</h3>
         <p class="muted" style="margin:0.35rem 0 0.2rem;">A caller reports a crime, but key intake is skipped and the call ends early. Without Sigrun, that failure can pass unnoticed. With Sigrun:</p>
         <ol class="steps-list">
           <li>Sigrun enforces required call-flow steps before topic shifts, transfer, or hang-up are allowed.</li>
           <li>It verifies that key fields (like caller identity for reportable incidents) are captured and that promised transfer actions actually happen.</li>
-          <li>If a rule is missed or confidence drops, it blocks closure and escalates to a human dispatcher.</li>
+          <li>If a rule is missed or confidence drops, it blocks closure and escalates to a human dispatcher — with every turn, check result, and decision logged and replayable.</li>
         </ol>
-        <p class="muted" style="margin-top:0.75rem;">Every turn, check result, escalation, and policy version is logged and replayable.</p>
       </div>
     </section>
 
