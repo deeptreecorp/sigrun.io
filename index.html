@@ -277,16 +277,15 @@
       <div class="example-tabs" role="tablist" aria-label="Industry examples">
         <button class="example-tab active" role="tab" aria-selected="true" aria-controls="example-public-safety" id="tab-public-safety" data-example-target="example-public-safety">Public Safety (911)</button>
         <button class="example-tab" role="tab" aria-selected="false" aria-controls="example-healthcare" id="tab-healthcare" data-example-target="example-healthcare">Healthcare</button>
-        <button class="example-tab" role="tab" aria-selected="false" aria-controls="example-finance-ops" id="tab-finance-ops" data-example-target="example-finance-ops">Enterprise Ops (Finance)</button>
+        <button class="example-tab" role="tab" aria-selected="false" aria-controls="example-finance-ops" id="tab-finance-ops" data-example-target="example-finance-ops">Finance</button>
       </div>
 
       <div class="example-panel" id="example-public-safety" role="tabpanel" aria-labelledby="tab-public-safety">
         <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">911 call closed before intake is complete</h3>
         <p class="muted" style="margin:0.35rem 0 0.2rem;">A caller reports a crime, but key intake is skipped and the call ends early. Without Sigrun, that failure can pass unnoticed. With Sigrun:</p>
         <ol class="steps-list">
-          <li>Sigrun enforces required call-flow steps before topic shifts, transfer, or hang-up are allowed.</li>
-          <li>It verifies that key fields (like caller identity for reportable incidents) are captured and that promised transfer actions actually happen.</li>
-          <li>If a rule is missed or confidence drops, it blocks closure and escalates to a human dispatcher — with every turn, check result, and decision logged and replayable.</li>
+          <li>Sigrun enforces required call-flow steps before transfer or closure.</li>
+          <li>If key intake is missing or confidence drops, it blocks closure and escalates with a replayable decision trail.</li>
         </ol>
       </div>
 
@@ -294,9 +293,8 @@
         <h3 style="margin:0.2rem 0 0.4rem; font-size:1rem;">Medication risk missed in a draft summary</h3>
         <p class="muted" style="margin:0.35rem 0 0.2rem;">A patient summary omits a medication interaction. Without Sigrun, it ships. With Sigrun:</p>
         <ol class="steps-list">
-          <li>Sigrun checks the draft against source records for missing safety risks, required structure, and unsupported claims.</li>
-          <li>It runs a second verifier pass and assigns confidence to the result.</li>
-          <li>If confidence is low or a critical check fails, release is blocked and routed to human review — with every input, check, and decision logged and replayable.</li>
+          <li>Sigrun verifies drafts against source records for completeness and unsupported claims.</li>
+          <li>If critical checks fail or confidence is low, release is blocked and routed to human review with full decision context.</li>
         </ol>
       </div>
 
@@ -305,8 +303,7 @@
         <p class="muted" style="margin:0.35rem 0 0.2rem;">An AI agent proposes a large customer credit and account change. Without guardrails, it executes. With Sigrun:</p>
         <ol class="steps-list">
           <li>Sigrun enforces policy gates on risk tier, required context, and approval thresholds before execution.</li>
-          <li>It verifies confidence and route integrity, then escalates uncertain or policy-violating proposals to the right human approver.</li>
-          <li>Every decision is versioned, reason-coded, and replayable for finance, compliance, and audit review.</li>
+          <li>Every escalation is logged with policy version, reason code, and full replay for audit.</li>
         </ol>
       </div>
     </section>
